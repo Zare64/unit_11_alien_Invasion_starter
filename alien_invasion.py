@@ -8,8 +8,6 @@
 #and then just iterate over the individual folders for state based animation or if that has problems just
 #leave it unanimated
 
-#I also hope its alright I'm submitting this with a zip folder I have the github set up but am not sure
-#how to submit it
 import sys
 import pygame
 from settings import Settings
