@@ -19,6 +19,7 @@ class Alien(Sprite):
             fleet (AlienInvasion): fleet.game reference for pulling stuff from the settings
         """
         super().__init__()
+        self.fleet = fleet
         self.screen = fleet.game.screen
         self.boundaries = fleet.game.screen.get_rect()
         self.settings = fleet.game.settings
@@ -39,11 +40,11 @@ class Alien(Sprite):
     def update(self) -> None:
         temp_speed = self.settings.fleet_speed
 
-        if self.check_edges():
-            self.settings.fleet_direction *= -1
-            self.y+=self.settings.fleet_drop_speed
+        #if self.check_edges():
+            #self.settings.fleet_direction *= -1
+            #self.y+=self.settings.fleet_drop_speed
 
-        self.x+=temp_speed*self.settings.fleet_direction
+        self.x+=temp_speed*self.fleet.fleet_direction
         self.rect.x=self.x
         self.rect.y=self.y
     
