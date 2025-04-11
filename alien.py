@@ -1,10 +1,10 @@
-##Rover Rampage Game, Solomon Harkins, 4/4/2025
+##Rover Rampage fleet.game, Solomon Harkins, 4/4/2025
 from typing import TYPE_CHECKING
 import pygame
 from pygame.sprite import Sprite
 
 if TYPE_CHECKING:
-    from alien_invasion import AlienInvasion
+    from alien_fleet import AlienFleet
 
 class Alien(Sprite):
     """Enemy Alien
@@ -12,16 +12,16 @@ class Alien(Sprite):
     Args:
         Sprite (Sprite): Visual component
     """
-    def __init__(self, game : "AlienInvasion", x : float, y : float) -> None:
+    def __init__(self, fleet : "AlienFleet", x : float, y : float) -> None:
         """Initialises all needed alien values
 
         Args:
-            game (AlienInvasion): Game reference for pulling stuff from the settings
+            fleet (AlienInvasion): fleet.game reference for pulling stuff from the settings
         """
         super().__init__()
-        self.screen = game.screen
-        self.boundaries = game.screen.get_rect()
-        self.settings = game.settings
+        self.screen = fleet.game.screen
+        self.boundaries = fleet.game.screen.get_rect()
+        self.settings = fleet.game.settings
 
         self.image = pygame.image.load(self.settings.alien_file)
         self.image = pygame.transform.scale(self.image,
