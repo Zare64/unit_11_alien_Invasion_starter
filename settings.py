@@ -32,6 +32,6 @@ class Settings:
 
         self.alien_folder = self.image_import_file / 'enemy_trooper'
         self.alien_file = self.alien_folder / 'idle' / 'tile000.png'
-        self.fleet_speed = 5
+        self.fleet_speed = 1
         self.alien_w = 48
         self.alien_h = 60
