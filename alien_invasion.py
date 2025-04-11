@@ -12,7 +12,8 @@ import sys
 import pygame
 from settings import Settings
 from rover import Rover
-from arsenal import ShipArsenal
+from arsenal import RoverArsenal
+from alien import Alien
 class AlienInvasion:
     """The overall game object that displays all objects below it and contains the settings
     """
@@ -32,11 +33,12 @@ class AlienInvasion:
         self.running = True
         self.clock= pygame.time.Clock()
 
-        self.ship = Rover(self, ShipArsenal(self))
+        self.ship = Rover(self, RoverArsenal(self))
 
         pygame.mixer.init()
         self.bullet_sound = pygame.mixer.Sound(self.settings.bullet_sound)
         self.bullet_sound.set_volume(self.settings.bullet_volume)
+        self.alien = Alien(self, 10, 10)
 
 
 
@@ -46,6 +48,7 @@ class AlienInvasion:
         while self.running:
             self._check_events()
             self.ship.update()
+            self.alien.update()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
@@ -55,6 +58,7 @@ class AlienInvasion:
         """
         self.screen.blit(self.bg, (0,0))
         self.ship.draw()
+        self.alien.draw_alien()
         pygame.display.flip()
 
 
