@@ -12,8 +12,8 @@ class Settings:
         self.screen_h = 800
         self.FPS = 60
         print(f"My Path is: {Path.cwd()}")
-        self.image_import_file = Path.cwd() / 'unit_11_alien_Invasion_starter' / 'Assets' / 'images'
-        self.sound_import_file = Path.cwd() / 'unit_11_alien_Invasion_starter' / 'Assets' / 'sound'
+        self.image_import_file = Path.cwd() / 'Assets' / 'images'
+        self.sound_import_file = Path.cwd() / 'Assets' / 'sound'
         
         self.player_rover_folder = self.image_import_file / 'player_rover'
         self.bg_file = self.image_import_file / 'mud_background.png'
