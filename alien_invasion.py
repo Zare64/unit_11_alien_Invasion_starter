@@ -1,12 +1,7 @@
 ##Rover Rampage Game, Solomon Harkins, 4/4/2025
-#FYI the reason there are so many image files is I wanted to add animations
-#(Mostly because these sprites have sat unused in my file system for like a solid 2 years)
-#when I was trying to figure out how to do it it looked really weird to do but
-#I have found out even more recently its probably not too bad to do with the blit()
-#function so I might try that which would lead to a much cleaner looking import later on
-#if that doesn't work I'll at a bare minimum reimport cuz I'm like 99.9% sure I messed up scaling
-#and then just iterate over the individual folders for state based animation or if that has problems just
-#leave it unanimated
+#I couldn't get around to utilizing the image files for animation, a lot of classes are hitting me with work atm
+#I don't know if it's realistic that I will get around to it however just in case that is a thing I'll be able to do 
+#I plan to leave the assets in
 
 import sys
 import pygame
@@ -63,6 +58,9 @@ class AlienInvasion:
             self.clock.tick(self.settings.FPS)
 
     def _check_collisions(self):
+        """Checks if the alien fleet has triggered victory or defeat conditions and responds
+        also handles bullet collision with alien events
+        """
         #check collisions for ship
         if self.ship.check_collisions(self.alien_fleet.fleet):
             self._check_game_status()
@@ -80,6 +78,8 @@ class AlienInvasion:
             self.impact_sound.fadeout(self.settings.impact_fadeout)
 
     def _check_game_status(self):
+        """Checks for lives, if there are none left it stops the game loop
+        """
         if self.game_stats.ships_left>0:
             self.game_stats.ships_left-=1
             self._reset_level()
@@ -91,6 +91,8 @@ class AlienInvasion:
 
 
     def _reset_level(self) -> None:
+        """Resets the player bullets and the aliens
+        """
         self.ship.arsenal.arsenal.empty()
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()

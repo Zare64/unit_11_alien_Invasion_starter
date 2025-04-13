@@ -1,4 +1,4 @@
-##Rover Rampage fleet.game, Solomon Harkins, 4/4/2025
+##Rover Rampage fleet.game, Solomon Harkins, 4/13/2025
 from typing import TYPE_CHECKING
 import pygame
 from pygame.sprite import Sprite
@@ -38,6 +38,8 @@ class Alien(Sprite):
         #self.y = float(self.rect.y)
     
     def update(self) -> None:
+        """Handles all needed periodic updates for the alien
+        """
         temp_speed = self.settings.fleet_speed
 
         #if self.check_edges():
@@ -48,7 +50,12 @@ class Alien(Sprite):
         self.rect.x=self.x
         self.rect.y=self.y
     
-    def check_edges(self):
+    def check_edges(self) -> bool:
+        """Checks if the alien is touching an edge
+
+        Returns:
+            bool: Returns true if it is touching an edge, false if it isn't
+        """
         return (self.rect.right >= self.boundaries.right or self.rect.left <= self.boundaries.left)
 
     def draw_alien(self) -> None:

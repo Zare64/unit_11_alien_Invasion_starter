@@ -1,8 +1,4 @@
 ##Rover Rampage Game, Solomon Harkins, 4/4/2025
-#I took some creative liberties on the movement I hope that is alright, I wasn't entirely sure if these labs were meant to
-#differ from the source material at all so I kept it pretty tame, if it is alright to do that I was thinking about having a different
-#enemy behavior and spawning and have a cycling background to simulate player forward movement if not i'll revert the movement to what was
-#shown in the tutorial for future submissions and might go back later and redo the project in Godot with intended changes
 import pygame
 from typing import TYPE_CHECKING
 
@@ -84,7 +80,15 @@ class Rover:
         """
         return self.arsenal.fire_bullet()
     
-    def check_collisions(self, other_group):
+    def check_collisions(self, other_group) -> bool:
+        """Checks if the rover is colliding with specified other party
+
+        Args:
+            other_group (Any): Specified other party to determine collision
+
+        Returns:
+            bool: Returns true if there is a collision with specified party, false if not
+        """
         if pygame.sprite.spritecollideany(self, other_group):
             self._center_ship()
             return True
