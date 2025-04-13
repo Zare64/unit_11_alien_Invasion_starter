@@ -41,3 +41,29 @@ class Settings:
         self.alien_h = 60
         self.fleet_direction = 1 
         self.fleet_drop_speed = 60
+
+        self.configuration_list = [
+            [
+                '  a  a  a a a  a  a',
+                'a  a  a  aaa  a  a  a',
+                '  a  a  a   a  a  a',
+            ],
+            [
+                'aaaaaaaaaaaa',
+                '',
+                'aaaaaaaaaaaa'
+            ],
+            [
+                'aaaaaa aaa aaaaaa',
+                '    a   a   a ',
+                '   aa aa aa aa'
+            ],
+            [
+                '   aaaa aa aaaa   ',
+                'aaaaaaa    aaaaaaa',
+                '   aaaa aa aaaa   ',
+                '   aaaa    aaaa   '
+            ]
+
+
+        ]

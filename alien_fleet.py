@@ -2,6 +2,7 @@
 import pygame
 from typing import TYPE_CHECKING
 from alien import Alien
+from random import randint
 
 if TYPE_CHECKING:
     from alien_invasion import AlienInvasion
@@ -36,9 +37,9 @@ class AlienFleet:
 
         x_offset, y_offset = self.calculate_offset(alien_w, alien_h, screen_w, fleet_w, fleet_h)
         
-            
-
-        self._create_rectangle_fleet(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
+        configuration = self.settings.configuration_list[randint(0, 3)]
+        self.create_preconfigured_fleet(configuration, alien_w, alien_h, x_offset, y_offset)
+        #self._create_rectangle_fleet(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
 
     def _create_rectangle_fleet(self, alien_w:int, alien_h:int, fleet_w:int, fleet_h:int, x_offset:int, y_offset:int) -> None:
         """Creates a fleet in a rectangle formation
@@ -58,6 +59,30 @@ class AlienFleet:
                 if collumn%2 ==0:
                     continue
                 self._create_alien(current_x,current_y)
+
+    def create_preconfigured_fleet(self, configuration:list, blank_size:int, row_height:int, x_offset:int, y_offset:int) -> None:
+        """Creates a fleet based on a list of strings
+
+        Args:
+            configuration (list): List of strings determining fleet composition
+            blank_size (int): X Size of a "blank" space
+            row_height (int): Amount of space between the rows
+            x_offset (int): X offset of the fleet
+            y_offset (int): Y offset of the fleet
+        """
+        current_x=x_offset
+        current_y=y_offset
+        for row in configuration:
+            
+            for char in row:
+                if char.isspace():
+                    current_x+=blank_size
+                    continue
+                elif char=='a':
+                    current_x+=self.settings.alien_w
+                    self._create_alien(current_x,current_y)
+            current_x=x_offset
+            current_y+=row_height
 
     def calculate_offset(self, alien_w:int, alien_h:int, screen_w:int, fleet_w:int, fleet_h:int) -> tuple:
         """Calculates offset for fleet generation
