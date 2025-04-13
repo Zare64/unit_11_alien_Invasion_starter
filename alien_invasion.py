@@ -15,6 +15,8 @@ from rover import Rover
 from arsenal import RoverArsenal
 #from alien import Alien
 from alien_fleet import AlienFleet
+from game_stats import GameStats
+from time import sleep
 class AlienInvasion:
     """The overall game object that displays all objects below it and contains the settings
     """
@@ -23,6 +25,7 @@ class AlienInvasion:
         """
         pygame.init()
         self.settings=Settings()
+        self.game_stats = GameStats(self.settings.starting_ship_amount)
         self.screen = pygame.display.set_mode((self.settings.screen_w,self.settings.screen_h))
         pygame.display.set_caption(self.settings.name)
 
@@ -43,6 +46,7 @@ class AlienInvasion:
         self.impact_sound.set_volume(self.settings.impact_volume)
         self.alien_fleet = AlienFleet(self)
         self.alien_fleet.create_fleet()
+        self.game_active=True
 
 
 
@@ -51,21 +55,22 @@ class AlienInvasion:
         """
         while self.running:
             self._check_events()
-            self.ship.update()
-            self.alien_fleet.update_fleet()
-            self._check_collisions()
+            if self.game_active:
+                self.ship.update()
+                self.alien_fleet.update_fleet()
+                self._check_collisions()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
     def _check_collisions(self):
         #check collisions for ship
         if self.ship.check_collisions(self.alien_fleet.fleet):
-            self._reset_level()
+            self._check_game_status()
             #subtract a life if possible
 
         #check collisions for aliens and bottom of screen
         if self.alien_fleet.check_fleet_bottom():
-            self._reset_level()
+            self._check_game_status()
         if self.alien_fleet.check_destroyed_status():
             self._reset_level()
         #check collisions of projectiles and aliens
@@ -73,6 +78,16 @@ class AlienInvasion:
         if collisions:
             self.impact_sound.play()
             self.impact_sound.fadeout(self.settings.impact_fadeout)
+
+    def _check_game_status(self):
+        if self.game_stats.ships_left>0:
+            self.game_stats.ships_left-=1
+            self._reset_level()
+            sleep(0.5)
+        else:
+            self.game_active = False
+        print(self.game_stats.ships_left)
+        
 
 
     def _reset_level(self) -> None:

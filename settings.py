@@ -20,6 +20,7 @@ class Settings:
         self.ship_file = self.player_rover_folder / 'idle' / 'player_rover000.png'
         self.ship_w = 96
         self.ship_h = 120
+        self.starting_ship_amount = 3
 
         self.bullet_file = self.image_import_file / 'rover_bullet.png'
         self.bullet_sound = self.sound_import_file / 'laser.mp3'
