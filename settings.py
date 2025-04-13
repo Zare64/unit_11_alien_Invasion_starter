@@ -23,16 +23,19 @@ class Settings:
 
         self.bullet_file = self.image_import_file / 'rover_bullet.png'
         self.bullet_sound = self.sound_import_file / 'laser.mp3'
+        self.impact_sound = self.sound_import_file / 'impactSound.mp3'
         self.bullet_w = 24
         self.bullet_h = 48
         self.bullet_amount = 5
         self.bullet_speed = 5
         self.bullet_volume = 0.7
         self.bullet_fadeout = 250
+        self.impact_volume = 0.9
+        self.impact_fadeout = 125
 
         self.alien_folder = self.image_import_file / 'enemy_trooper'
         self.alien_file = self.alien_folder / 'idle' / 'tile000.png'
-        self.fleet_speed = 1
+        self.fleet_speed = 2
         self.alien_w = 48
         self.alien_h = 60
         self.fleet_direction = 1 
