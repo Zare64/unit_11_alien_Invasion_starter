@@ -14,6 +14,7 @@ class Settings:
         print(f"My Path is: {Path.cwd()}")
         self.image_import_file = Path.cwd() / 'Assets' / 'images'
         self.sound_import_file = Path.cwd() / 'Assets' / 'sound'
+        self.font_import_file = Path.cwd() / 'Assets' / 'Fonts'
         
         self.player_rover_folder = self.image_import_file / 'player_rover'
         self.bg_file = self.image_import_file / 'mud_background.png'
@@ -67,3 +68,13 @@ class Settings:
 
 
         ]
+
+        self.button_w = 200
+        self.button_h = 50
+        self.button_color = (0,135,50)
+
+        self.text_color = (255,255,255)
+        self.button_font_size = 48
+        self.HUD_foot_size = 20
+
+        self.font_file = self.font_import_file / 'Comfortaa-Medium.ttf'

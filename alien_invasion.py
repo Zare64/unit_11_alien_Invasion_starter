@@ -12,6 +12,8 @@ from arsenal import RoverArsenal
 from alien_fleet import AlienFleet
 from game_stats import GameStats
 from time import sleep
+from button import Button
+
 class AlienInvasion:
     """The overall game object that displays all objects below it and contains the settings
     """
@@ -41,7 +43,9 @@ class AlienInvasion:
         self.impact_sound.set_volume(self.settings.impact_volume)
         self.alien_fleet = AlienFleet(self)
         self.alien_fleet.create_fleet()
-        self.game_active=True
+        self.play_button = Button(self, 'Play')
+        self.game_active= False
+        
 
 
 
@@ -97,6 +101,17 @@ class AlienInvasion:
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()
 
+    def restart_game(self):
+        #setting up settings
+        #reset game_stats
+        #update hud scores
+        #reset level
+        #recenter the ship
+        self.game_active = True
+        pygame.mouse.set_visible(False)
+        self.ship._center_ship()
+        self._reset_level()
+        
     def _update_screen(self) -> None:
         """Updates all screen elements (the ones updated tell descendents to update)
         """
@@ -104,6 +119,11 @@ class AlienInvasion:
         self.ship.draw()
         #self.alien.draw_alien()
         self.alien_fleet.draw()
+
+        if not self.game_active:
+            self.play_button.draw()
+            pygame.mouse.set_visible(True)
+
         pygame.display.flip()
 
 
@@ -120,6 +140,13 @@ class AlienInvasion:
 
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                self._check_button_clicked()
+
+    def _check_button_clicked(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.play_button.check_clicked(mouse_pos):
+            self.restart_game()
 
 
     def _check_keydown_events(self, event) -> None:
