@@ -22,6 +22,7 @@ class AlienInvasion:
         """
         pygame.init()
         self.settings=Settings()
+        self.settings.initialize_dynamic_settings()
         self.game_stats = GameStats(self.settings.starting_ship_amount)
         self.screen = pygame.display.set_mode((self.settings.screen_w,self.settings.screen_h))
         pygame.display.set_caption(self.settings.name)

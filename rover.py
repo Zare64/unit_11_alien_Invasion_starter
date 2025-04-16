@@ -32,7 +32,7 @@ class Rover:
         self.moving_right = False
         self.moving_left = False
         self.velocity=0
-        
+        self.ship_speed = game.settings.ship_speed
         self.arsenal = arsenal
 
     def _center_ship(self):
@@ -51,9 +51,9 @@ class Rover:
         #Utilises velocity based movement for smoother directional transitions 
         # and moving to stop transitions
         if self.moving_right:
-            self.velocity+=1
+            self.velocity+=self.ship_speed
         if self.moving_left:
-            self.velocity-=1
+            self.velocity-=self.ship_speed
         if self.velocity<.1 and self.velocity>-.1:
             self.velocity=0
         self.velocity/=1.2
