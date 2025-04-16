@@ -75,6 +75,9 @@ class AlienInvasion:
         if self.alien_fleet.check_fleet_bottom():
             self._check_game_status()
         if self.alien_fleet.check_destroyed_status():
+            self.settings.increase_difficulty()
+            #update game stats level
+            #update HUD view
             self._reset_level()
         #check collisions of projectiles and aliens
         collisions = self.alien_fleet.check_collisions(self.ship.arsenal.arsenal)
@@ -108,6 +111,7 @@ class AlienInvasion:
         #update hud scores
         #reset level
         #recenter the ship
+        self.settings.initialize_dynamic_settings()
         self.game_active = True
         pygame.mouse.set_visible(False)
         self.ship._center_ship()
