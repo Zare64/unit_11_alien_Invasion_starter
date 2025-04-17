@@ -7,6 +7,14 @@ class Settings:
     def __init__(self) -> None:
         """Sets stored components for outside reference
         """
+
+        """Credits:
+        All mp3 files were created by me utilizing beepbox for music or jsfxr for sfx
+
+        All png files were created by me (at various points of time) utilizing piskel
+
+        All ttf files were aquired via google fonts
+        """
         self.name: str = 'Alien Invasion'
         self.screen_w = 1200
         self.screen_h = 800
@@ -26,12 +34,15 @@ class Settings:
         self.bullet_file = self.image_import_file / 'rover_bullet.png'
         self.bullet_sound = self.sound_import_file / 'laser.mp3'
         self.impact_sound = self.sound_import_file / 'impactSound.mp3'
+        self.main_music = self.sound_import_file / 'music' / 'Rover Battlefield Main Theme.mp3'
+        self.pause_music = self.sound_import_file / 'music' / 'Rover Battlefield Pause Theme.mp3'
 
         self.bullet_volume = 0.7
         self.bullet_fadeout = 250
         self.impact_volume = 0.9
         self.impact_fadeout = 125
-
+        
+        self.alien_points = 50
         self.alien_folder = self.image_import_file / 'enemy_trooper'
         self.alien_file = self.alien_folder / 'idle' / 'tile000.png'
 
@@ -55,6 +66,7 @@ class Settings:
         self.difficulty_scale = 1.1
 
     def initialize_dynamic_settings(self) -> None:
+        self.current_music = self.pause_music
         self.bullet_w = 24
         self.bullet_h = 48
         self.bullet_amount = 5

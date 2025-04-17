@@ -23,7 +23,7 @@ class AlienInvasion:
         pygame.init()
         self.settings=Settings()
         self.settings.initialize_dynamic_settings()
-        self.game_stats = GameStats(self.settings.starting_ship_amount)
+        self.game_stats = GameStats(self)
         self.screen = pygame.display.set_mode((self.settings.screen_w,self.settings.screen_h))
         pygame.display.set_caption(self.settings.name)
 
@@ -46,6 +46,9 @@ class AlienInvasion:
         self.alien_fleet.create_fleet()
         self.play_button = Button(self, 'Play')
         self.game_active= False
+        self.pause_music = self.settings.pause_music
+        self.main_music = self.settings.main_music
+        self.play_track(self.pause_music)
         
 
 
@@ -78,10 +81,12 @@ class AlienInvasion:
             self.settings.increase_difficulty()
             #update game stats level
             #update HUD view
+            self.game_stats.update_level()
             self._reset_level()
         #check collisions of projectiles and aliens
         collisions = self.alien_fleet.check_collisions(self.ship.arsenal.arsenal)
         if collisions:
+            self.game_stats.update(collisions)
             self.impact_sound.play()
             self.impact_sound.fadeout(self.settings.impact_fadeout)
 
@@ -93,10 +98,15 @@ class AlienInvasion:
             self._reset_level()
             sleep(0.5)
         else:
+            self.play_track(self.pause_music)
             self.game_active = False
         print(self.game_stats.ships_left)
         
-
+    def play_track(self, track):
+        pygame.mixer.music.load(track)
+        pygame.mixer.music.stop()
+        pygame.mixer.music.play(-1)
+            
 
     def _reset_level(self) -> None:
         """Resets the player bullets and the aliens
@@ -111,11 +121,14 @@ class AlienInvasion:
         #update hud scores
         #reset level
         #recenter the ship
+        self.play_track(self.main_music)
         self.settings.initialize_dynamic_settings()
         self.game_active = True
         pygame.mouse.set_visible(False)
         self.ship._center_ship()
         self._reset_level()
+        self.game_stats.reset_stats()
+        #draw HUD
         
     def _update_screen(self) -> None:
         """Updates all screen elements (the ones updated tell descendents to update)
