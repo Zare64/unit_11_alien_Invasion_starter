@@ -44,8 +44,12 @@ class AlienInvasion:
         pygame.mixer.init()
         self.bullet_sound = pygame.mixer.Sound(self.settings.bullet_sound)
         self.bullet_sound.set_volume(self.settings.bullet_volume)
+        self.level_end_sound = pygame.mixer.Sound(self.settings.level_end_sound)
+        self.level_end_sound.set_volume(self.settings.level_end_volume)
         self.impact_sound= pygame.mixer.Sound(self.settings.impact_sound)
         self.impact_sound.set_volume(self.settings.impact_volume)
+        self.death_sound = pygame.mixer.Sound(self.settings.death_sound)
+        self.death_sound.set_volume(self.settings.death_volume)
         self.alien_fleet = AlienFleet(self)
         self.alien_fleet.create_fleet()
         self.play_button = Button(self, 'Play')
@@ -76,12 +80,19 @@ class AlienInvasion:
         #check collisions for ship
         if self.ship.check_collisions(self.alien_fleet.fleet):
             self._check_game_status()
+            self.death_sound.play()
+            self.death_sound.fadeout(self.settings.death_fadeout)
             #subtract a life if possible
 
         #check collisions for aliens and bottom of screen
         if self.alien_fleet.check_fleet_bottom():
             self._check_game_status()
+            self.death_sound.play()
+            self.death_sound.fadeout(self.settings.death_fadeout)
         if self.alien_fleet.check_destroyed_status():
+            
+            self.level_end_sound.play()
+            self.level_end_sound.fadeout(self.settings.level_end_fadeout)
             self.settings.increase_difficulty()
             #update game stats level
             #update HUD view

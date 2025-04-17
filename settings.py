@@ -36,13 +36,20 @@ class Settings:
         self.bullet_file = self.image_import_file / 'rover_bullet.png'
         self.bullet_sound = self.sound_import_file / 'laser.mp3'
         self.impact_sound = self.sound_import_file / 'impactSound.mp3'
+        self.level_end_sound = self.sound_import_file / 'levelComplete.mp3'
+        self.death_sound = self.sound_import_file / 'death.mp3'
         self.main_music = self.sound_import_file / 'music' / 'Rover Battlefield Main Theme.mp3'
         self.pause_music = self.sound_import_file / 'music' / 'Rover Battlefield Pause Theme.mp3'
 
-        self.bullet_volume = 0.7
+        self.bullet_volume = 0.5
         self.bullet_fadeout = 250
         self.impact_volume = 0.9
         self.impact_fadeout = 125
+        self.level_end_volume = .9
+        self.level_end_fadeout = 500
+        self.death_volume = 1.3
+        self.death_fadeout = 900
+
         
         
         self.alien_folder = self.image_import_file / 'enemy_trooper'
