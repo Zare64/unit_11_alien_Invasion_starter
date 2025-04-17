@@ -1,5 +1,6 @@
 ##Rover Rampage Game, Solomon Harkins, 4/4/2025
 from pathlib import Path
+from random import randint
 
 class Settings:
     """Stores a lot of components for outside reference
@@ -65,8 +66,88 @@ class Settings:
         self.font_file = self.font_import_file / 'Comfortaa-Medium.ttf'
 
         self.difficulty_scale = 1.1
+        self.bulk_configurations = [
+            [
+                '  a  a  a a a  a  a',
+                'a  a  a  aaa  a  a  a',
+                '  a  a  a   a  a  a',
+            ],
+            [
+                'aaaaaaaaaaaa',
+                '',
+                'aaaaaaaaaaaa'
+            ],
+            [
+                'aaaaaa aaa aaaaaa',
+                '    a   a   a ',
+                '   aa aa aa aa'
+            ],
+            [
+                '   aaaa aa aaaa   ',
+                'aaaaaaa    aaaaaaa',
+                '   aaaa aa aaaa   ',
+                '   aaaa    aaaa   '
+            ],
+            [
+                'aaaaaaaaaaaaaaaaaa',
+                '     a       a    ',
+                'aaaaaaaaaaaaaaaaaa',
+                'a     aa aa      a',
+                'aaaaaaaaaaaaaaaaaa'
+            ],
+            [
+                '    aa      aa    ',
+                '     a      a     ',
+                '         a        ',
+                'aaa            aaa',
+                '  aaaaaaaaaaaaaa  '
+            ],
+            [
+                'aaaaaaaaaaaaaa',
+                'a            a',
+                'a            a',
+                'aaaaaaaaaaaaaa'
+            ],
+            [
+                'aa          aa',
+                ' aa        aa ',
+                '  aa      aa  ',
+                '   aa    aa   ',
+                '    aa  aa    ',
+                '     aaaa     '
+            ],
+            [
+                'aaa  aaa  aaa  aaa',
+                ' aaa  aaa  aaa  aa',
+                '  aaa  aaa  aaa  a',
+                'a  aaa  aaa  aaa  ',
+                'aa  aaa  aaa  aaa '
+            ],
+            [
+                'aaaaaaaaaaaaaaaa',
+                'aaaaaaaaaaa',
+                'aaaaaa'
+            ],
+            [
+                '    aaa     ',
+                ' aaa   aaa  ',
+                'aa       aa ',
+                ' aa     aa  ',
+                '   aaaaa    '
+            ],
+            [
+                'aaaaaaaaaaaaaaa',
+                'aaaaaa   aaaaaa',
+                'aaa         aaa',
+                'a             a'
+            ]
+
+
+        ]
 
     def initialize_dynamic_settings(self) -> None:
+        """Initialises settings that are designed to potentially change over time
+        """
         self.current_music = self.pause_music
         self.alien_points = 50
         self.bullet_w = 24
@@ -104,6 +185,11 @@ class Settings:
         ]
 
     def increase_difficulty(self) -> None:
+        """Modifies dynamic settings to increase the difficulty
+        """
         self.ship_speed *= self.difficulty_scale
         self.bullet_speed *= self.difficulty_scale
         self.fleet_speed *= self.difficulty_scale
+        bulk_index = randint(0,len(self.bulk_configurations)-1)
+        config_index = randint(0,len(self.configuration_list)-1)
+        self.configuration_list[config_index] = self.bulk_configurations[bulk_index]

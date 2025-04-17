@@ -1,7 +1,9 @@
 ##Rover Rampage Game, Solomon Harkins, 4/4/2025
 #I couldn't get around to utilizing the image files for animation, a lot of classes are hitting me with work atm
-#I don't know if it's realistic that I will get around to it however just in case that is a thing I'll be able to do 
-#I plan to leave the assets in
+#definitely was not realistic to get it done but hey another lesson in scope creep never hurt anybody
+#I did try and go more in depth on the preset configurations though via modification of them as difficulty increases
+#And I got around to implementing multiple music tracks (even if the execution leaves much to be desired)
+
 
 import sys
 import pygame
@@ -106,7 +108,12 @@ class AlienInvasion:
             self.game_active = False
         print(self.game_stats.ships_left)
         
-    def play_track(self, track):
+    def play_track(self, track:str) -> None:
+        """Plays a music track and stops currently played one
+
+        Args:
+            track (str): Path of the music track that you want to play
+        """
         pygame.mixer.music.load(track)
         pygame.mixer.music.stop()
         pygame.mixer.music.play(-1)
@@ -119,7 +126,9 @@ class AlienInvasion:
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()
 
-    def restart_game(self):
+    def restart_game(self) -> None:
+        """Restarts the game resetting all values/elements needed
+        """
         #setting up settings
         #reset game_stats
         #update hud scores
@@ -168,7 +177,9 @@ class AlienInvasion:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 self._check_button_clicked()
 
-    def _check_button_clicked(self):
+    def _check_button_clicked(self) -> None:
+        """Checks if the button to play is clicked
+        """
         mouse_pos = pygame.mouse.get_pos()
         if self.play_button.check_clicked(mouse_pos):
             self.restart_game()
