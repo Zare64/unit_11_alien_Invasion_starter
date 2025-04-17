@@ -69,7 +69,7 @@ class GameStats():
 
     def update_level(self) -> None:
         self.level += 1
-        print (self.level)
+        #print (self.level)
 
     def _update_high_score(self):
         if self.score > self.high_score:

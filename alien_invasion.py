@@ -85,6 +85,7 @@ class AlienInvasion:
             #update HUD view
             self.game_stats.update_level()
             self._reset_level()
+            self.HUD.update_level()
         #check collisions of projectiles and aliens
         collisions = self.alien_fleet.check_collisions(self.ship.arsenal.arsenal)
         if collisions:
