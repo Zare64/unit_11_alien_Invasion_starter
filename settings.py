@@ -23,6 +23,7 @@ class Settings:
         self.image_import_file = Path.cwd() / 'Assets' / 'images'
         self.sound_import_file = Path.cwd() / 'Assets' / 'sound'
         self.font_import_file = Path.cwd() / 'Assets' / 'Fonts'
+        self.scores_file = Path.cwd() / 'Assets' / 'file' / 'scores.json'
         
         self.player_rover_folder = self.image_import_file / 'player_rover'
         self.bg_file = self.image_import_file / 'mud_background.png'
@@ -42,7 +43,7 @@ class Settings:
         self.impact_volume = 0.9
         self.impact_fadeout = 125
         
-        self.alien_points = 50
+        
         self.alien_folder = self.image_import_file / 'enemy_trooper'
         self.alien_file = self.alien_folder / 'idle' / 'tile000.png'
 
@@ -67,6 +68,7 @@ class Settings:
 
     def initialize_dynamic_settings(self) -> None:
         self.current_music = self.pause_music
+        self.alien_points = 50
         self.bullet_w = 24
         self.bullet_h = 48
         self.bullet_amount = 5
