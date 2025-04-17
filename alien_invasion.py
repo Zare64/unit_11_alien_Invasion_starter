@@ -13,6 +13,7 @@ from alien_fleet import AlienFleet
 from game_stats import GameStats
 from time import sleep
 from button import Button
+from hud import HUD
 
 class AlienInvasion:
     """The overall game object that displays all objects below it and contains the settings
@@ -23,7 +24,7 @@ class AlienInvasion:
         pygame.init()
         self.settings=Settings()
         self.settings.initialize_dynamic_settings()
-        self.game_stats = GameStats(self)
+        
         self.screen = pygame.display.set_mode((self.settings.screen_w,self.settings.screen_h))
         pygame.display.set_caption(self.settings.name)
 
@@ -31,7 +32,8 @@ class AlienInvasion:
         self.bg = pygame.transform.scale(self.bg, 
             (self.settings.screen_w, self.settings.screen_h)
             )
-
+        self.game_stats = GameStats(self)
+        self.HUD = HUD(self)
         self.running = True
         self.clock= pygame.time.Clock()
 
@@ -87,6 +89,7 @@ class AlienInvasion:
         collisions = self.alien_fleet.check_collisions(self.ship.arsenal.arsenal)
         if collisions:
             self.game_stats.update(collisions)
+            self.HUD.update_scores()
             self.impact_sound.play()
             self.impact_sound.fadeout(self.settings.impact_fadeout)
 
@@ -124,6 +127,7 @@ class AlienInvasion:
         self.play_track(self.main_music)
         self.settings.initialize_dynamic_settings()
         self.game_active = True
+        self.HUD.update_scores()
         pygame.mouse.set_visible(False)
         self.ship._center_ship()
         self._reset_level()
@@ -137,6 +141,7 @@ class AlienInvasion:
         self.ship.draw()
         #self.alien.draw_alien()
         self.alien_fleet.draw()
+        self.HUD.draw()
 
         if not self.game_active:
             self.play_button.draw()
@@ -150,6 +155,7 @@ class AlienInvasion:
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                self.game_stats.save_scores()
                 self.running=False
                 pygame.quit()
                 sys.exit()
@@ -178,6 +184,7 @@ class AlienInvasion:
         if event.key ==pygame.K_a:
             self.ship.moving_left=True
         if event.key == pygame.K_q:
+            self.game_stats.save_scores()
             self.running=False
             pygame.quit()
             sys.exit()

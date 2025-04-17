@@ -15,7 +15,7 @@ class Settings:
 
         All ttf files were aquired via google fonts
         """
-        self.name: str = 'Alien Invasion'
+        self.name: str = 'Rover Rampage'
         self.screen_w = 1200
         self.screen_h = 800
         self.FPS = 60
@@ -60,7 +60,7 @@ class Settings:
 
         self.text_color = (255,255,255)
         self.button_font_size = 48
-        self.HUD_foot_size = 20
+        self.HUD_font_size = 20
 
         self.font_file = self.font_import_file / 'Comfortaa-Medium.ttf'
 
